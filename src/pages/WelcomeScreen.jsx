@@ -6,10 +6,12 @@ const WelcomeScreen = () => {
   const {oidcUser, oidcUserLoadingState} = useOidcUser();
     return (
       <OidcSecure>
-        <div>
-          <h1>Welcome</h1>
-          {oidcUser && <div style={{display: 'flex', justifyContent: 'space-between'}}>{JSON.stringify(oidcUser)} </div>}
-        </div>
+        <h1>Welcome{oidcUser ? `, ${oidcUser.given_name}` : ''}</h1>
+        {oidcUser && (
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+            <p>Email: {oidcUser.email}</p>
+          </div>
+        )}
       </OidcSecure>
     );
 };
