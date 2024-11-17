@@ -29,7 +29,10 @@ The `WelcomeScreen.jsx` component demonstrates how to protect routes. By wrappin
 
 Protected Routes: The `RouteList.jsx` file defines the routing logic, with certain pages being accessible only to authenticated users.
 ### 5. Role-based Access Control (RBAC)
-Access Control: In `WelcomeScreen.jsx`, user roles are checked based on group membership. The app checks if the user belongs to certain groups (e.g., "TASK_ADMIN_GRP1") to determine if they have the required permissions to access certain functionality.
+Access Control: The `WelcomeScreen.jsx` component includes functionality for task creation and deletion, with permissions based on user roles.
+
+Role-Based Access Control: The role of the user is displayed based on whether they belong to the taskManG1 group. If the user is in this group, they are assigned the Admin role; otherwise, they are assigned the User role.
+Task Deletion: Only users with the Admin role (i.e., those in the taskManG1 group) are allowed to delete tasks. Non-admin users will see a "Permission Denied" message.
 ### 6. Handling Authentication and Access Tokens
 User Data: Use the useOidcUser hook to access the authenticated user's information (name, email, etc.).
 Tokens: The useOidcAccessToken and useOidcIdToken hooks provide the access and ID tokens, which can be used for making API requests or for additional authentication checks.
