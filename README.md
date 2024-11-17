@@ -46,5 +46,8 @@ The project is organized as follows:
 `LoginScreen.jsx`: The login page where users initiate the login process with Custos.
 
 `WelcomeScreen.jsx`: A protected page where the authenticated user is greeted, and role-based access is demonstrated.
+
+`DemoVideo`: A demo video demonstrating the entire authentication and authorization flow. The video is titled FullIntegrationWalkthrough and showcases how users log in, view their role, and perform actions based on their group membership.
+
 Conclusion
 This integration demonstrates how to implement authentication and authorization with Custos in a React app. It leverages role-based access control (RBAC) to ensure that only authorized users can access certain routes or actions.
