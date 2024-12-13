@@ -8,7 +8,10 @@ import axios from "axios";
 
 const WelcomeScreen = () => {
   const [title, setTitle] = useState('');
-  const [tasklist, setTaskList] = useState([])
+  const [id, setId] = useState('');
+  const [id2, setId2] = useState('');
+  const [status, setStatus] = useState('');
+  const [tasklist, setTaskList] = useState([]);
   const {oidcUser, oidcUserLoadingState} = useOidcUser();
   const {idToken, idTokenPayload} = useOidcIdToken();
   const {accessToken, accessTokenPayload} = useOidcAccessToken();
@@ -43,14 +46,32 @@ const WelcomeScreen = () => {
     console.error("Error fetching data:", error); // Log any error
   });
 
-  // Handler for deleting a task
-  const handleDeleteTask = () => {
-    if (oidcUser && oidcUser.groups.includes('taskManG1')) {
-      alert('Task deleted!');
-    } else {
-      alert('You are not an admin, permission denied.');
-    }
-  };
+  const handleDelete = (e) => {
+    e.preventDefault();
+    const taskD = {ID: parseInt(id)};
+
+    axios.delete("http://localhost:8080/task", {
+      data: taskD, // Send the task data inside 'data'
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then(() => {
+      console.log("task deleted")
+    })
+  }
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const taskU = {ID: parseInt(id2), Status: status};
+
+    axios.put("http://localhost:8080/task", taskU, {  // Just send 'taskU' as the second parameter
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then(() => {
+      console.log("task updated")
+    })
+  }
 
   const role = oidcUser && oidcUser.groups.includes('taskManG1') ? 'Admin' : 'User';
 
@@ -62,13 +83,26 @@ const WelcomeScreen = () => {
           <p>Email: {oidcUser.email}</p>
           <p>Role: {role}</p>
           
-          {/* Buttons below the email */}
-          <div style={{ marginTop: '10px' }}>
-            <button onClick={handleDeleteTask} style={{ marginBottom: '10px', backgroundColor: '#f44336' }}>
-              Delete Task
-            </button>
-          </div>
 
+        <form onSubmit={handleUpdate}>
+        <label>Task ID:</label>
+        <input
+          type="number"
+          required
+          value={id2}
+          onChange={(e) => setId2(e.target.value)}
+        />
+        <label>New Status:</label>
+        <select
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+        >
+          <option value="InProgress">InProgress</option>
+          <option value="Completed">Completed</option>
+        </select>
+        <button>Change Status</button>
+        </form>
+        
         <form onSubmit={handleCreate}>
         <label>Task Name:</label>
         <input 
@@ -77,8 +111,20 @@ const WelcomeScreen = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <button style={{ marginBottom: '30px', backgroundColor: '#4CAF50' }}>Add Task</button>
+        <button style={{ marginBottom: '10px', backgroundColor: '#4CAF50' }}>Add Task</button>
         </form>
+
+        <form onSubmit={handleDelete}>
+        <label>Task ID:</label>
+        <input 
+          type="number" 
+          required 
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+        />
+        <button style={{ marginBottom: '10px', backgroundColor: '#f44336' }}>Delete Task</button>
+        </form>
+
 
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
           {tasklist.map((task) => (

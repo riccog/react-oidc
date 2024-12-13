@@ -24,6 +24,7 @@ func main() {
 
 	r.POST("/task", controllers.CreateTasks)
 	r.GET("/task", controllers.ViewTasks)
-
+	r.DELETE("/task", controllers.DeleteTasks)
+	r.PUT("/task", controllers.UpdateTasks)
 	r.Run()
 }

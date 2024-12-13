@@ -36,3 +36,26 @@ func ViewTasks(c *gin.Context) {
 		"tasks": tasks,
 	})
 }
+
+func DeleteTasks(c *gin.Context) {
+	var body struct {
+		ID uint
+	}
+
+	c.Bind(&body)
+	initializer.DB.Delete(&models.Task{}, body.ID)
+
+}
+
+func UpdateTasks(c *gin.Context) {
+	var body struct {
+		ID     uint
+		Status models.TaskStatus
+	}
+
+	c.Bind(&body)
+	initializer.DB.Model(&models.Task{}).
+		Where("id = ?", body.ID).
+		Update("status", body.Status)
+
+}
