@@ -16,6 +16,15 @@ Install the required dependencies using npm:
 
 ```bash 
 npm install @axa-fr/react-oidc react-router-dom
+npm install axios
+```
+
+Install the required dependencies using Go:
+```bash 
+go get github.com/gin-gonic/gin
+go get github.com/jinzhu/gorm
+go get github.com/jinzhu/gorm/dialects/sqlite
+go get github.com/rs/cors
 ```
 
 ###  2. App Configuration
