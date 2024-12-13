@@ -36,8 +36,8 @@ Task Deletion: Only users with the Admin role (i.e., those in the taskManG1 grou
 ### 6. Handling Authentication and Access Tokens
 User Data: Use the useOidcUser hook to access the authenticated user's information (name, email, etc.).
 Tokens: The useOidcAccessToken and useOidcIdToken hooks provide the access and ID tokens, which can be used for making API requests or for additional authentication checks.
-### 7. Files Structure
-The project is organized as follows:
+### 7. Frontend File Structure
+The project's frontend is organized as follows:
 
 `App.jsx`: Main entry point where the OIDC provider is configured.
 
@@ -48,6 +48,21 @@ The project is organized as follows:
 `WelcomeScreen.jsx`: A protected page where the authenticated user is greeted, and role-based access is demonstrated.
 
 `DemoVideo`: A demo video demonstrating the entire authentication and authorization flow. The video is titled FullIntegrationWalkthrough and showcases how users log in, view their role, and perform actions based on their group membership.
+
+### 8. Backend File Structure
+The projects backend is organized as follows:
+
+`controllers/task_controller.go`: Where we define the endpoint logic.
+
+`initializer/database.go`: Where we connect our database to our server.
+
+`migrations/migrate.go`: Here we link our task model to our database.
+
+`migrations/20241212201227_tasks.sql`: This is where we describe the schema of our database.
+
+`models/task_model.go`: Describes the task field in our database.
+
+`main.go`: Where we generate our server, grant CORs permissions, and define endpoints.
 
 Conclusion
 This integration demonstrates how to implement authentication and authorization with Custos in a React app. It leverages role-based access control (RBAC) to ensure that only authorized users can access certain routes or actions.
